@@ -68,15 +68,20 @@ public class UserController {
         String password = request.getParameter("password");
         String password2 = request.getParameter("password2");
         String nativeplace= request.getParameter("nativeplace");
-        log.info(name,password,nativeplace);
+        log.info(name);
+        log.info(nativeplace);
         List<User> userList =  userService.findUserByusername(name);
         if(userList.size() == 0 && password.equals(password2)){
             User user = new User();
-            userService.insertausertoplace(nativeplace);
+            NativePlace nativeplac=userService.findNativePlaceByNativeplace(nativeplace);
+            
+            user.setNativeplace(nativeplac);
+          
             user.setUsername(name);
             user.setUserpwd(password);
-            
             userService.saveUser(user);
+
+            
             return "login";
         }else{
             return "register";

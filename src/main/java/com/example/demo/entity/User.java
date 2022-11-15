@@ -33,13 +33,13 @@ public class User implements Serializable{
 	//密码
 	@NotEmpty(message = "密码不能为空")
     @Size(min = 1, max = 20)
-    @Column(name="userpwd",nullable = false) 
+    @Column(name="userpwd",nullable = true) 
 	private String userpwd;
 
 	//爱好
     @Column(name="favor") 
 	private String favor;
-    @Column(name="gender",nullable = false) 
+    @Column(name="gender",nullable = true) 
 	private String gender;
     //描述
     @Size(min = 0, max = 150)
@@ -48,9 +48,7 @@ public class User implements Serializable{
     //籍贯
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     //可选属性optional=false,表示籍贯不能为空。
-    @JoinColumn(name="native_id",
-    			referencedColumnName="id"
-    			)//设置在user表中的关联字段(外键)
+    @JoinColumn(name="native_id")//设置在user表中的关联字段(外键)
     @JsonIgnore
     private NativePlace nativeplace;
     
@@ -90,10 +88,10 @@ public class User implements Serializable{
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public NativePlace getNativep() {
+	public NativePlace getNativeplace() {
 		return nativeplace;
 	}
-	public void setNativep(NativePlace nativep) {
+	public void setNativeplace(NativePlace nativep) {
 		this.nativeplace = nativep;
 	}
 	

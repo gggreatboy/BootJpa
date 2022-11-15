@@ -24,18 +24,15 @@ public class NpandUserServiceImpl implements NpandUserService {
 		userRepository.save(user);
 
 	}
-
-	@Override
-	public NativePlace findNativePlaceByNativeplace(String Nativeplace) {
-		// TODO Auto-generated method stub
-		return nativePlaceRepository.findNativePlaceByNativeplace(Nativeplace);
-	}
 	
 	@Override
-	public int insertausertoplace(String Nativeplace) {
-		nativePlaceRepository.insertausertoplace(Nativeplace);
-		return 1;
+	public void saveNativePlace(NativePlace nativeplace) {
+		// TODO Auto-generated method stub
+		nativePlaceRepository.save(nativeplace);
+
 	}
+
+	
 
 	@Override
 	public User findUserByusernameAnduserpwd(String name, String password) {
@@ -47,6 +44,10 @@ public class NpandUserServiceImpl implements NpandUserService {
 	public List<User> findUserByusername(String name) {
 		// TODO Auto-generated method stub
 		return userRepository.findUserByUsername(name);
+	}
+	@Override
+	public NativePlace findNativePlaceByNativeplace(String Nativeplace) {
+		return nativePlaceRepository.findNativePlaceByNativeplace(Nativeplace);
 	}
 
 }
