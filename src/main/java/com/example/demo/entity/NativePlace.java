@@ -24,7 +24,7 @@ public class NativePlace implements Serializable{
 	private int id;
 	@Column(name="native_plac") 
 	private String nativeplace;
-	//文章列表，作者与文章是一对多的关系
+	
     @OneToMany(
     		mappedBy = "nativeplace",
     		cascade=CascadeType.ALL,

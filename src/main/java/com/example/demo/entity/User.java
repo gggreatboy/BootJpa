@@ -91,8 +91,8 @@ public class User implements Serializable{
 	public NativePlace getNativeplace() {
 		return nativeplace;
 	}
-	public void setNativeplace(NativePlace nativep) {
-		this.nativeplace = nativep;
+	public void setNativep(NativePlace nativeplace) {
+		this.nativeplace = nativeplace;
 	}
 	
 }
