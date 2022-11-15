@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" />
+</head>
+<body>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">用户列表</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="panel panel-primary">
+      <div class="table table-responsive">
+        <table class="table table -bordered table-hover">
+          <tbody class="text-center">
+            <tr th:each="user:${allUser}">
+              <td>
+                <span th:text="${user.id}"></span>
+              </td>
+              <td>
+                <span th:text="${user.username}"></span>
+              </td>
+              <td>
+                <span th:text="${user.gender}"></span>
+              </td>
+              <td>
+                <span th:text="${user.favor}"></span>
+              </td>
+              <td>
+                <span th:text="${user.describe}"></span>
+              </td>
+              <td>
+                <span th:text="${user.nativeplace.nativeplace}"></span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7" align="center">
+                <ul class="pagination">
+                  <li><a>第<span th:text="${page}"></span>页</a></li>
+                  <li><a>共<span th:text="${totalPage}"></span>页</a></li>
+                  <li><a>共<span th:text="${totalCount}"></span>条</a></li>
+                  <li><a th:href="@{findAllUserByPage(page=${page-1})}" th:if="${page!=1}">上一页</a></li>
+                  <li><a th:href="@{findAllUserByPage(page=${page+1})}" th:if="${page!=totalPage}">下一页</a></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 align="center">欢迎用户：<span th:text="${username}"> ！</h2>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

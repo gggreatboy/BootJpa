@@ -39,10 +39,11 @@ public class UserController {
     public String login(HttpServletRequest request,Model model){
         String name = request.getParameter("username");
         String password = request.getParameter("password");
+        model.addAttribute("username", name);
         log.info(name,password);
         User user = userService.findUserByusernameAnduserpwd(name, password);
         if(user != null){
-            return "usermain";
+            return "forward:/findAllUserByPage";
         }else{
             return "login";
         }
@@ -68,15 +69,24 @@ public class UserController {
         String password = request.getParameter("password");
         String password2 = request.getParameter("password2");
         String nativeplace= request.getParameter("nativeplace");
+        String favor=request.getParameter("favor");
+        String desc=request.getParameter("desc");
+        String gender=request.getParameter("gender");
+
         log.info(name);
         log.info(nativeplace);
-        List<User> userList =  userService.findUserByusername(name);
+        log.info(favor);
+        log.info(desc);
+        log.info(gender);
+        List<User> userList =  userService.findUserByUsername(name,"id");
         if(userList.size() == 0 && password.equals(password2)){
             User user = new User();
             NativePlace nativeplac=userService.findNativePlaceByNativeplace(nativeplace);
             
             user.setNativeplace(nativeplac);
-          
+            user.setDescribe(desc);
+            user.setFavor(favor);
+            user.setGender(gender);
             user.setUsername(name);
             user.setUserpwd(password);
             userService.saveUser(user);
@@ -86,5 +96,12 @@ public class UserController {
         }else{
             return "register";
         }
+        
+    }
+    
+
+    @RequestMapping("/findAllUserByPage")
+    public String findAllUserByPage(Integer page,Model model){
+        return userService.findAllUserByPage(page, model);
     }
 }

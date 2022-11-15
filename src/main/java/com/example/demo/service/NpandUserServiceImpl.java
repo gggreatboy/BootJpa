@@ -1,9 +1,15 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.example.demo.entity.NativePlace;
 import com.example.demo.entity.User;
@@ -41,13 +47,41 @@ public class NpandUserServiceImpl implements NpandUserService {
 	}
 
 	@Override
-	public List<User> findUserByusername(String name) {
+	public List<User> findUserByUsername(String name,String sortColumn) {
 		// TODO Auto-generated method stub
-		return userRepository.findUserByUsername(name);
+		return userRepository.findUserByUsername(name,Sort.by(Sort.Direction.ASC,sortColumn));
 	}
+	
+	@Override
+	public String findAllUserByPage(Integer page,Model model) {
+		if(page==null) {
+		  page=1;
+		}
+		int size=5;
+		Page<User>pageData=
+	userRepository.findAll(PageRequest.of(page-1, size,Sort.by(Sort.Direction.ASC,"id")));
+		List<User>allUser=pageData.getContent();
+		HashMap<Integer, String> places = new HashMap<Integer, String>();
+
+		for(User user:allUser) {
+			
+		}
+		model.addAttribute("allUser",allUser);
+		model.addAttribute("places", places);
+		model.addAttribute("totalCount", pageData.getTotalElements());
+		model.addAttribute("totalPage", pageData.getTotalPages());
+		model.addAttribute("page", page);
+		return "usermain";
+		}
+	
 	@Override
 	public NativePlace findNativePlaceByNativeplace(String Nativeplace) {
 		return nativePlaceRepository.findNativePlaceByNativeplace(Nativeplace);
+	}
+	
+	@Override
+	public String findNativeplaceById(Integer id) {
+		return nativePlaceRepository.findNativeplaceById(id);		
 	}
 
 }
