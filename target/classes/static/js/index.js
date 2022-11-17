@@ -1,10 +1,10 @@
 			var index=0;
 			// 点击上一张
-			$("a:first").click(function(){
+			$("#left").click(function(){
 				prev_pic();
 			})
 			// 点击下一张
-			$("a:last").click(function(){
+			$("#right").click(function(){
 				next_pic();
 			})
 			// 悬浮停止
@@ -48,5 +48,5 @@
 			function autoplay(){
 				id=setInterval(function(){
 					next_pic();
-				},3000)
+				},2000)
 			}
