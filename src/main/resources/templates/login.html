@@ -1,16 +1,72 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>login</title>
-</head>
-<body>
+<!DOCTYPE html> 
+<html lang="en" xmlns:th="https://www.thymeleaf.org"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>login</title> 
+    <link rel = "stylesheet" type="text/css"  th:href="@{/css/login.css}" />
+</head> 
+<body> 
+ <stection>
+			<!-- 背景色 -->
+			<div class = "color"></div>
+			<div class = "color"></div>
+			<div class = "color"></div>
+			<div class = 'box'>
 
-<form th:action="@{/dologin}" method="post">
-    用户名：<input type="text" name="username"><br>
-    密码： <input type="password" name="password"><br>
-    <input type="submit" value="登录">
-</form>
+				<!-- 背景圆 -->
+				<div class = "circle" style = "--x:0"></div>
+				<div class = "circle" style = "--x:1"></div>
+				<div class = "circle" style = "--x:2"></div>
+				<div class = "circle" style = "--x:3"></div>
+				<div class = "circle" style = "--x:4"></div>
+				
+					<form th:action="@{/dologin}" method="post" th:object="${user}" id="loginform"> 
+						<div class="box">
+                    	<div class="index" >
+                        	<div class="cen">
+                           		<h2>用户登录</h2>
+                        	</div>
+                        	<div class="login">
+    							用户名：<input class="username" type="text" th:field="*{username}" placeholder="请输入用户名" id="usernameinput"><br> 
+    							密&emsp;码： <input class="psd" type="password" th:field="*{userpwd}" placeholder="请输入密码" id="userpwdinput"><br> 
+								<input  class="but1" type = "submit" name="Submit" value = "登录"  />
+								<input class=" but2" type = "reset"  name="Reset"  value = "重置" />
+								</div>
+								<div style="text-align:center;"><span th:if="${usernameerror}"  id="Error" style="color:red;">用户名或者密码输入错误！！
+								<br/>请检查后重新输入！！</span></div>
+								<p style="font-size:16;color:grey;text-align:center;">&nbsp;&nbsp;没有账号？<br/><a th:href="@{register}">点击这里注册</a> </p>
+                    	</div>
+						</div>
+					</form>
+			</div>
+ </stection>
 
-</body>
+</body> 
+<script type="text/javascript">
+
+var usernameInput = document.getElementById("usernameinput");
+var userpwdInput = document.getElementById("userpwdinput");
+var loginform=document.getElementById("loginform");
+usernameInput.onfocus = function () {
+ 	document.getElementById("Error").innerHTML = "";
+};
+
+userpwdInput.onfocus = function () {
+ 	document.getElementById("Error").innerHTML = "";
+};
+
+
+loginform.onsubmit=function () {
+ 	if(usernameInput.value==""){
+ 		alert("请输入用户名！");
+ 		return false;
+ 	}else if(userpwdInput.value==""){
+ 		alert("请输入密码！");
+ 		return false;
+ 	}else{
+		return true;
+ 	};
+};
+
+</script>
 </html>

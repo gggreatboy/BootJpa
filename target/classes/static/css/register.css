@@ -1,0 +1,129 @@
+@charset "UTF-8";
+  *{
+            margin: 0;
+            padding: 0;
+        }
+        .index{
+            position: absolute;
+            width: 700px;
+            height: 650px;
+            background-color: rgba(255,255,255,0.1);
+            box-shadow: 12px 12px 12px cornflowerblue;
+            border-radius: 10px;
+            top: 50%;
+            left: 50%;
+            opacity: 0.8;
+            margin-top: -360px;
+            margin-left: -350px;
+        }
+        .box{
+            width: auto;
+            height: 840px;
+            background-image: url("bk.png");
+            background-size: 100% 100%;
+        }
+        .cen{
+            width: 660px;
+            position: absolute;
+            font-size: 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .but1 {
+            position: absolute;
+            width: 150px;
+            height: 50px;
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-left: 450px;
+        }
+        .but2{
+            position: absolute;
+            width: 150px;
+            height: 50px;
+            border-radius: 10px;
+            margin-top: 120px;
+            margin-left: 450px;
+        }
+        .but1:hover{
+            cursor: pointer;
+            color: black;
+            background-color: cadetblue;
+        }
+        .but2:hover{
+            cursor: pointer;
+            color: black;
+            background-color: cadetblue;
+        }
+        .username{
+            position: relative;
+            margin-top: 150px;
+            width: 200px;
+            height:40px;
+            border-radius: 10px;
+            padding-left: 10px;
+            left: 50%;
+            margin-left: -350px;
+        }
+        .number{
+            position: relative;
+            margin-top: 30px;
+            width: 200px;
+            height:40px;
+            padding-left: 10px;
+            left: 50%;
+            margin-left: -350px;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+        }
+        .select1{
+            position: absolute;
+            margin-top: -5px;
+            width: 210px;
+            height: 40px;
+            border-radius: 10px;
+            padding-left: 10px;
+        }
+        .psd{
+            position: relative;
+            margin-top: 30px;
+            width: 200px;
+            height: 40px;
+            border-radius: 10px;
+            padding-left: 10px;
+            left: 50%;
+            margin-left: -350px;
+        }
+        .psd2{
+            position: relative;
+            margin-top: 30px;
+            width: 200px;
+            height: 40px;
+            border-radius: 10px;
+            padding-left: 10px;
+            left: 50%;
+            margin-left: -350px;
+        }
+        div{
+            padding-left: 10px;
+        }
+        .sex{
+            position: absolute;
+            margin-top: -35px;
+            left: 400px;
+        }
+        .hb{
+            position: absolute;
+            margin-top: -35px;
+            left: 400px;
+        }
+        .write{
+            position: absolute;
+            margin-top: -50px;
+            left: 400px;
+        }
+        .pic{
+            position: absolute;
+            margin-top: 55px;
+        }

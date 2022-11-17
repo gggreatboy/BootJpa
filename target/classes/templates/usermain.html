@@ -17,14 +17,26 @@
   <div class="container">
     <div class="panel panel-primary">
       <div class="table table-responsive">
-        <table class="table table -bordered table-hover">
+        <table class="table table -bordered table-hover" border="1">
+          <thead   class="text-primary">
+          <tr>
+          	<th ><div style="text-align:center;"><span>用户编号</span></div></th>
+          	<th ><div style="text-align:center;"><span >用户名</span></div></th>
+          	<th ><div style="text-align:center;"><span>性别</span></div></th>
+          	<th ><div style="text-align:center;"><span>爱好</span></div></th>
+          	<th ><div style="text-align:center;"><span>用户介绍</span></div></th>
+          	<th ><div style="text-align:center;"><span>籍贯</span></div></th>
+          	<th ><div style="text-align:center;"><span>靓照下载</span></div></th>
+          </tr>
+          </thead>
           <tbody class="text-center">
+            
             <tr th:each="user:${allUser}">
               <td>
                 <span th:text="${user.id}"></span>
               </td>
               <td>
-                <span th:text="${user.username}"></span>
+                <span  th:text="${user.username}"></span>
               </td>
               <td>
                 <span th:text="${user.gender}"></span>
@@ -38,24 +50,68 @@
               <td>
                 <span th:text="${user.nativeplace.nativeplace}"></span>
               </td>
+              <td>
+				<a th:if="${user.picname}" href="#" th:href="@{downloadfile(filename=${user.picname})}">
+				<button class="custom-btn btn-1" th:text="下载">
+				</button>
+				</a>
+              </td>
             </tr>
             <tr>
               <td colspan="7" align="center">
                 <ul class="pagination">
+                  <li><a th:href="@{findAllUser(page=${page-1})}" th:if="${page!=1}">上一页</a></li>
                   <li><a>第<span th:text="${page}"></span>页</a></li>
                   <li><a>共<span th:text="${totalPage}"></span>页</a></li>
                   <li><a>共<span th:text="${totalCount}"></span>条</a></li>
-                  <li><a th:href="@{findAllUserByPage(page=${page-1})}" th:if="${page!=1}">上一页</a></li>
-                  <li><a th:href="@{findAllUserByPage(page=${page+1})}" th:if="${page!=totalPage}">下一页</a></li>
+                  <li><a th:href="@{findAllUser(page=${page+1})}" th:if="${page!=totalPage}">下一页</a></li>
                 </ul>
               </td>
             </tr>
           </tbody>
         </table>
-        <h2 align="center">欢迎用户：<span th:text="${username}"> ！</h2>
       </div>
     </div>
+    <h2 align="center">欢迎用户：<span th:text="${#httpSession.getAttribute('usernamenow')}"></span>！</h2>
+    <h4 align="center">
+    <a  href="#" th:href="@{login}">
+    <button>退出登录/切换用户</button>
+    </a>
+    </h4>
   </div>
   
 </body>
+<style>
+button {
+	  margin: 8px;
+	}
+	.custom-btn {
+	  width: 60px;
+	  height: 20px;
+	  color: #fff;
+	  border-radius: 5px;
+	  padding: 1px 1px;
+	  font-family: 'Lato', sans-serif;
+	  font-weight: 400;
+	  background: transparent;
+	  cursor: pointer;
+	  transition: all 0.3s ease;
+	  position: relative;
+	  display: inline-block;
+	   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+	   7px 7px 20px 0px rgba(0,0,0,.1),
+	   4px 4px 5px 0px rgba(0,0,0,.1);
+	  outline: none;
+	}
+	
+	/* 1 */
+	.btn-1 {
+	  background: rgb(6,14,131);
+	  background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
+	  border: none;
+	}
+	.btn-1:hover {
+	   background: rgb(0,3,255);
+	background: linear-gradient(0deg, rgba(0,3,255,1) 0%, rgba(2,126,251,1) 100%);
+	}</style>
 </html>

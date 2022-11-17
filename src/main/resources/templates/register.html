@@ -3,31 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <title>register</title>
+    <link rel = "stylesheet" type="text/css"  th:href="@{/css/login.css}"/> 
+	<link rel = "stylesheet" type="text/css"  th:href="@{/css/register.css}"/> 
 </head>
 <body>
+<stection>
+			<!-- 背景色 -->
+			<div class = "color"></div>
+			<div class = "color"></div>
+			<div class = "color"></div>
+			<div class = 'box'>
+				<!-- 背景圆 -->
 
-<form th:action="@{/doregister}" method="post">
-    用户名：<input type="text" name="username"><br>
-    户籍：<input type="text" name="nativeplace"><br>
-    密码：<input type="password" name="password"><br>
-    确认密码：<input type="password" name="password2"><br>
-    性别：
-    
-    <input id="Radio1" name="gender" value="男" type="radio"/>男
-    <input id="Radio2" name="gender" value="女" type="radio"/>女<br/>
+				<div class="box">
+					<div class="index" >
+						<div class="cen">
+                 			<h2>用户注册</h2>
+             			</div>
+						<form  th:action="@{/doregister}" method="post" th:object="${usernew}" enctype="multipart/form-data" id="regform" >
+							<div class="login">
+    							用&nbsp;户&nbsp;名：<input class="username" type="text" th:field="*{username}" id="uname"><br>
+								<span id="usernameError" style="display: none;color:red;">用户名长度要求为6-15位！</span>
+							</div>
+							<div class="sex">
+								性别：
+    							<input  name="gender" value="男" type="radio" th:field="*{gender}"/>男
+    							<input  name="gender" value="女" type="radio" th:field="*{gender}"/>女<br/>
 
-    爱好：
-    <input id="checkbox1" name="favor" value="阅读" type="checkbox"/>阅读
-    <input id="checkbox2" name="favor" value="篮球" type="checkbox"/>篮球
-    <input id="checkbox3" name="favor" value="游戏" type="checkbox"/>游戏
-    <input id="checkbox4" name="favor" value="干饭" type="checkbox"/>干饭
-    <input id="checkbox5" name="favor" value="游泳" type="checkbox"/>游泳
-    <input id="checkbox6" name="favor" value="潜水" type="checkbox"/>潜水<br/>
-    介绍：<br/>
-    <textarea cols=16 rows=4 name="desc"></textarea><br/>
-    <input type="submit" value="注册">
-    <input type="reset" value="清空">
-</form>
+							</div>
+							<div class="number">
+    							户&emsp;&nbsp;籍：<select class="select1"  name="np" id="huji">
+    												<option value="noselect" id="npfirst">请选择户籍：</option>
+    												<option th:each="nplace:${allNativePlace}"
+    												th:value="${nplace.nativeplace}"
+    												th:text="${nplace.nativeplace}">
+    											  </select><br>
+    											  <span id="nplaceError"></span>
+							</div>
+							<div class="hb">
+								爱好：
+    							<input  name="favor" value="阅读" type="checkbox" th:field="*{favor}"/>阅读
+    							<input  name="favor" value="篮球" type="checkbox" th:field="*{favor}"/>篮球
+    							<input  name="favor" value="游戏" type="checkbox" th:field="*{favor}"/>游戏<br/>
+    							&emsp;&emsp;&emsp;&nbsp;<input name="favor" value="干饭" type="checkbox" th:field="*{favor}"/>干饭
+    							<input  name="favor" value="游泳" type="checkbox" th:field="*{favor}"/>游泳
+    							<input  name="favor" value="潜水" type="checkbox" th:field="*{favor}"/>潜水<br/>
+    							<span th:errors="*{favor}"></span>
+							</div>
+							<div>
+    							密&emsp;&nbsp; 码：<input class="psd" type="password" name="password" th:field="*{userpwd}" id="userpwd"><br>
+    							<span id="pwdError" style="display: none;color:red;">密码长度要求为8-20位！</span>
+							</div>
+							<div class="write">						
+    							介绍：<br/>
+    							<textarea cols=16 rows=4 name="desc"style="width: 190px" th:field="*{describe}" id="describef"></textarea><br/>
+    							<span id="descError"></span>
+             				</div>
+    							确认密码：<input  class="psd2" type="password" name="password2" id="confirmpwd"><br>
+    							<span id="confirmpwdError" style="display: none;color:red;">两次输入密码不一致！</span>
+             				<div class="pic">
+                     			你的靓照：
+                     			
+                     			
+                     			<input type="file" id="file" name="myfile" accept="image/*" style="width: 190px">
 
+             				</div>    	
+             				
+    					<input class="but1" type="submit" value="注册" >
+    					<input class="but2" type="reset" value="清空">
+    				
+						</form>
+					</div>
+				</div>
+			</div>
+<stection>
 </body>
+
+<script>
+//上传文件验证
+document.getElementById("file").onchange = function () {
+    var reader = new FileReader();
+    if(this.files[0].size>16056319){
+    	document.getElementById('file').value = ""; 
+		alert("图片大小不能超过15.3MB!");
+        document.getElementById('file').value = "";  
+        return false;
+    }
+    if(this.files[0].type.indexOf("image")==-1){
+    	document.getElementById('file').value = "";  
+    	alert("无效的文件类型，请上传图片!");
+         
+        return false;
+    }   
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("file").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+
+//账号验证
+var usernameInput = document.getElementById("uname");
+//1.2 绑定onblur事件 失去焦点
+usernameInput.onblur = function () {
+  //1.3 获取用户输入的用户名
+  var username = usernameInput.value.trim();
+
+  // 判断用户名是否符合规则：长度 6~15
+  if (username.length >= 6 && username.length <= 15) {
+      //符合规则
+      document.getElementById("usernameError").style.display = 'none';
+  } else {
+      //不合符规则
+      document.getElementById("usernameError").style.display = '';
+  };
+  
+//密码验证  
+var userpwdInput=document.getElementById("userpwd");
+userpwdInput.onblur = function () {
+	  // 获取用户输入的密码
+	  var userpwd = userpwdInput.value.trim();
+
+	  // 判断密码是否符合规则：长度 8~20
+	  if (userpwd.length >= 8 && userpwd.length <= 20) {
+	      //符合规则
+	      document.getElementById("pwdError").style.display = 'none';
+	  } else {
+	      //不合符规则
+	      document.getElementById("pwdError").style.display = '';
+	  };
+	};
+
+//密码确认验证
+var userpwdInput1=document.getElementById("userpwd");
+var userpwdInput2=document.getElementById("confirmpwd");
+userpwdInput2.onblur = function () {
+	  // 获取用户输入的确认密码
+	  var userpwd1 = userpwdInput1.value.trim();
+	  var userpwd2 = userpwdInput2.value.trim();
+	  // 判断密码是否符合规则：长度 8~20
+	  if (userpwd2==userpwd1 ) {
+	      //符合规则
+	      document.getElementById("confirmpwdError").style.display = 'none';
+	  } else {
+	      //不合符规则
+	      document.getElementById("confirmpwdError").style.display = '';
+	  };
+	};
+
+//总表格验证
+var regform=document.getElementById("regform");	
+regform.onsubmit=function () {
+	var username=document.getElementById("uname").value.trim();//用户名
+	var userpwd=document.getElementById("userpwd").value.trim();//密码1
+	var userpwdconfirm=document.getElementById("confirmpwd").value.trim();//密码2
+    var gender="";//性别
+    var genderall=document.getElementsByName("gender");
+    	for (var i = 0; i < genderall.length; i++) {
+    		if (genderall[i].checked == true) {
+    		gender=genderall[i].value;
+    		};
+      };
+    var favor=false;
+    var favorall=document.getElementsByName("favor");//爱好
+    	for (var i = 0; i < favorall.length; i++) {
+			if (favorall[i].checked == true) {
+				favor=true;
+			};
+  		};
+	var userdesc=document.getElementById("describef").value.trim(); //描述
+    var usernp=document.getElementById("huji");//籍贯
+	var npindex =usernp.selectedIndex;
+	var pic=document.getElementById("file").value;//照片
+	
+
+ 	if(username.length < 6 || username.length > 15){
+ 		alert("用户名输入错误！");
+ 		return false;
+ 	}else if(userpwd.length < 8 || userpwd.length > 20){
+ 		alert("密码输入格式有误！");
+ 		return false;
+ 	}else if(userpwd!=userpwdconfirm){
+ 		alert("两次密码输入不一致！");
+ 		return false;
+ 	}else if(gender==""){
+ 		alert("请选择性别！");
+ 		return false;
+ 	}else if(favor==false){
+ 		alert("请选择至少一项爱好！");
+ 		return false;
+ 	}else if(userdesc==""){
+ 		alert("请输入个人介绍！");
+ 		return false;
+ 	}else if(npindex==0){
+ 		alert("请选择户籍！");
+ 		return false;
+ 	}else if(pic==""){
+ 		alert("请上传个人照片！");
+ 		return false;
+ 	}else{
+		if(confirm("注册成功，是否前往登录界面？"))
+ 		{
+ 			return true;
+ 		}
+ 		else
+ 		{
+ 			return false;
+ 		};
+ 	};
+};
+
+}
+
+
+</script>
 </html>

@@ -45,7 +45,20 @@ public class User implements Serializable{
     @Size(min = 0, max = 150)
     @Column(name="describe1") 
 	private String describe;
-    //籍贯
+    
+	//图片名称
+	@NotEmpty(message = "请选择上传图片")
+    @Size(min = 1, max = 20)
+    @Column(name="picname",nullable = false) 
+	private String picname;
+    
+    public String getPicname() {
+		return picname;
+	}
+	public void setPicname(String picname) {
+		this.picname = picname;
+	}
+	//籍贯
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     //可选属性optional=false,表示籍贯不能为空。
     @JoinColumn(name="native_id")//设置在user表中的关联字段(外键)

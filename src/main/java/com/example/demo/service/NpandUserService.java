@@ -16,4 +16,5 @@ public interface NpandUserService {
 	public NativePlace findNativePlaceByNativeplace(String Nativeplace);
 	public String findAllUserByPage(Integer page,Model model);
 	public String findNativeplaceById(Integer id);
+	public List <NativePlace>findAll();
 }

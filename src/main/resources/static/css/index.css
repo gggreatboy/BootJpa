@@ -1,0 +1,96 @@
+			.wrapper {
+				
+				width: 960px;
+				height: 540px;
+				border: 1px solid red;
+				margin: auto; 
+				position: relative;
+				left: 0; 
+				right: 0; 
+				top: 0; 
+				bottom: 0;
+
+			}
+		
+			/* 5张图片叠加到一块 */
+			.wrapper img {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				display: none;
+			}
+		
+			.wrapper img:nth-of-type(1) {
+				display: block;
+			}
+		
+			/* 小圆点 */
+			.btn {
+				width: 150px;
+				display: flex;
+				justify-content: space-around;
+				position: absolute;
+				left: 415px;
+				bottom: 10px;
+				z-index: 100
+			}
+		
+			.btn span {
+				display: block;
+				width: 15px;
+				height: 15px;
+				border: 3px solid white;
+				border-radius: 50%;
+			}
+		
+			/* 左右箭头 */
+			.wrapper a {
+				text-decoration: none;
+				font-size: 50px;
+				color: red;
+				position: absolute;
+				top: 45%;
+			}
+		
+			.wrapper a:nth-of-type(1) {
+				left: 10px;
+		
+			}
+		
+			.wrapper a:nth-of-type(2) {
+				right: 10px;
+			}
+		
+			.active {
+				background-color: red;
+			}
+	.a1 {
+			color: #000000;
+			padding: 29px;
+			text-decoration: none;
+			font-size: 26px;
+			background-color: #dce1e6;
+			margin:15px 15px 15px 15px;
+            box-shadow: #666 0px 0px 6px;
+		}
+
+		.a1:active {
+			background-color: #bec3c6;
+		}
+		
+
+		.a2 {
+			background-color: #F1EFC7;
+			color: #000000;
+			padding: 29px;
+			text-decoration: none;
+			font-size: 26px;
+			box-shadow: #666 0px 0px 6px;
+
+		}
+		.a2:active{
+			background-color: #bdbc9d;
+		}
+

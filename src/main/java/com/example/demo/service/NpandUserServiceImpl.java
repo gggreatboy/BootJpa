@@ -15,7 +15,10 @@ import com.example.demo.entity.NativePlace;
 import com.example.demo.entity.User;
 import com.example.demo.repository.NativePlaceRepository;
 import com.example.demo.repository.UserRepository;
+
+import lombok.extern.slf4j.Slf4j;
 @Service
+@Slf4j
 public class NpandUserServiceImpl implements NpandUserService {
 
 	
@@ -63,9 +66,6 @@ public class NpandUserServiceImpl implements NpandUserService {
 		List<User>allUser=pageData.getContent();
 		HashMap<Integer, String> places = new HashMap<Integer, String>();
 
-		for(User user:allUser) {
-			
-		}
 		model.addAttribute("allUser",allUser);
 		model.addAttribute("places", places);
 		model.addAttribute("totalCount", pageData.getTotalElements());
@@ -83,5 +83,9 @@ public class NpandUserServiceImpl implements NpandUserService {
 	public String findNativeplaceById(Integer id) {
 		return nativePlaceRepository.findNativeplaceById(id);		
 	}
-
+	
+	@Override
+	public List <NativePlace>findAll(){
+		return nativePlaceRepository.findAll();
+	}
 }

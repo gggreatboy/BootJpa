@@ -1,13 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>欢迎页</title>
+    <link rel = "stylesheet" type="text/css"  th:href="@{/css/index.css}"/> 
 </head>
+
+
 <body>
+<marquee behavior="alternate" bgcolor="#FFA07A">
+<h3> 用户管理系统-【软工20-2王艺祺/梅跃宗/姚紫静】</h3>
+</marquee>
 
-<a th:href="@{/login}">登录</a><br>
-<a th:href="@{/register}">注册</a>
 
+
+  <div class="wrapper">
+			<div class="contain">
+				<img src="./imgs/11.jpeg" alt="">
+				<img src="./imgs/12.jpeg" alt="">
+				<img src="./imgs/13.jpeg" alt="">
+				<img src="./imgs/14.jpeg" alt="">
+				<img src="./imgs/15.jpeg" alt="">
+			</div>
+			<div class="btn">
+				<span class="active"></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<a href="javascript:void(0);">&lt;</a>
+			<a href="javascript:void(0);">&gt;</a>
+  </div>
+  <br/><br/><br/><br/>
+  <div style="text-align:center;">
+  	<a class="a1" th:href="@{/login}">登录</a>
+  	<a class="a2" th:href="@{/register}">注册</a>
+  </div>
 </body>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
 </html>

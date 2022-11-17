@@ -1,16 +1,17 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import com.example.demo.entity.User;
-import com.example.demo.entity.NativePlace;
+
 import com.example.demo.service.NpandUserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,19 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(){
-        return "login";
+    public String login(Model model){
+    	String regname=(String) model.getAttribute("regname");
+    	if(null==regname) {
+    		User user=new User();
+    		user.setUsername("2020b34039");
+    		model.addAttribute("user", user);}
+    	else {
+    		User user=new User();
+            user.setUsername(regname);
+            model.addAttribute("user", user);	
+    	}
+    	
+    	return "login";
     }
 
     /**
@@ -36,72 +48,31 @@ public class UserController {
      * @return
      */
     @RequestMapping("/dologin")
-    public String login(HttpServletRequest request,Model model){
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
-        model.addAttribute("username", name);
-        log.info(name,password);
-        User user = userService.findUserByusernameAnduserpwd(name, password);
-        if(user != null){
-            return "forward:/findAllUserByPage";
-        }else{
-            return "login";
-        }
-    }
+    public String login(@ModelAttribute User user,Model model,HttpSession session){
 
-    /**
-     * 注册界面
-     * @return
-     */
-    @RequestMapping("/register")
-    public String register(){
-        return "register";
-    }
-
-    /**
-     * 判断是否成功注册
-     * @param request
-     * @return
-     */
-    @RequestMapping("/doregister")
-    public String register(HttpServletRequest request){
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
-        String password2 = request.getParameter("password2");
-        String nativeplace= request.getParameter("nativeplace");
-        String favor=request.getParameter("favor");
-        String desc=request.getParameter("desc");
-        String gender=request.getParameter("gender");
+    	String name = user.getUsername();
+        String password = user.getUserpwd();
 
         log.info(name);
-        log.info(nativeplace);
-        log.info(favor);
-        log.info(desc);
-        log.info(gender);
-        List<User> userList =  userService.findUserByUsername(name,"id");
-        if(userList.size() == 0 && password.equals(password2)){
-            User user = new User();
-            NativePlace nativeplac=userService.findNativePlaceByNativeplace(nativeplace);
-            
-            user.setNativeplace(nativeplac);
-            user.setDescribe(desc);
-            user.setFavor(favor);
-            user.setGender(gender);
-            user.setUsername(name);
-            user.setUserpwd(password);
-            userService.saveUser(user);
-
-            
-            return "login";
+        User user1 = userService.findUserByusernameAnduserpwd(name, password);
+        if(user1 != null){
+        	session.setAttribute("usernamenow",user1.getUsername());
+        	return "forward:/findAllUser";
         }else{
-            return "register";
+        	model.addAttribute("usernameerror",name);
+        	
+            return "login";
         }
-        
     }
     
-
-    @RequestMapping("/findAllUserByPage")
-    public String findAllUserByPage(Integer page,Model model){
-        return userService.findAllUserByPage(page, model);
+    @RequestMapping("/findAllUser")
+    public String findAllUser(Integer page,Model model,HttpSession session) {
+    	String usernamenow=(String) session.getAttribute("usernamenow");
+    	log.info(usernamenow);
+    	return userService.findAllUserByPage(page,model);
+    	
+    	
     }
+
+    
 }
